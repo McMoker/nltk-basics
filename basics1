@@ -1,0 +1,47 @@
+import nltk
+# Stop word filtering
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+example_sentence = "This is an example sentence showing off stop word filtration"
+stop_words = set(stopwords.words("english"))
+
+words = word_tokenize(example_sentence)
+
+filtered_sentence = [w for w in words if not w in stop_words]
+
+print(filtered_sentence)
+
+# Stemming
+
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+
+example_words = ["python", "pythoner", "pythoning", "pythoned", "pythonly", "pythons"]
+
+for w in example_words:
+   print(ps.stem(w))
+
+# Part of speech tagging
+
+from nltk.corpus import state_union
+from nltk.tokenize import PunktSentenceTokenizer as pst
+
+train_text = state_union.raw("2005-GWBush.txt")
+sample_text = state_union.raw("2006-GWBush.txt")
+
+custom_sent_tokenizer = pst(sample_text)
+
+tokenized = custom_sent_tokenizer.tokenize(sample_text)
+
+def process_content():
+    try:
+        for i in tokenized:
+            words = nltk.word_tokenize(i)
+            tagged = nltk.pos_tag(words)
+
+            print(tagged)
+    except Exception as e:
+        print(str(e))
+
+process_content()
